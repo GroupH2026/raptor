@@ -19,7 +19,6 @@ Three params in `param.h` can be overridden without editing the file, e.g. to te
 | `PARAM_NONCE` | Falcon nonce length | 40 |
 
 `DIM` and `PARAM_Q` are fixed by the vendored Falcon-512 implementation and can't be changed this way.
-Claude is AI and can make mistakes. Please double-check responses. Give us feedbackSee task progress for longer tasks.Capstone Project (Masters)Instructions · CLAUDE.mdraptorREADME.md.gitignoreMakefileparam.hapi.hlinkable_raptor.cprint.cpoly.crng.cpoly.htest.craptor.craptor.hTODO.mdScratchpad
 
 
 
