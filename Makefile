@@ -21,12 +21,20 @@ SIGMA       ?= 123
 PARAM_NONCE ?= 40
 
 # rng/rng.c links OpenSSL (EVP AES-256-ECB) for the DRBG. macOS ships no
-# system OpenSSL headers, so this looks for a Homebrew install. Override
-# with `make OPENSSL_PREFIX=/path/to/openssl` if yours lives elsewhere.
+# system OpenSSL headers, so this first looks for a Homebrew install.
+# Linux distros (Arch, etc.) that install openssl headers straight into
+# /usr are picked up as a fallback. Override with
+# `make OPENSSL_PREFIX=/path/to/openssl` if yours lives elsewhere.
 OPENSSL_PREFIX ?= $(shell brew --prefix openssl@3 2>/dev/null || brew --prefix openssl@1.1 2>/dev/null || brew --prefix openssl 2>/dev/null)
 
 ifeq ($(strip $(OPENSSL_PREFIX)),)
-$(error Could not find OpenSSL. Run: brew install openssl@3   (or pass OPENSSL_PREFIX=/path/to/openssl))
+  ifneq ($(wildcard /usr/include/openssl/evp.h),)
+    OPENSSL_PREFIX := /usr
+  endif
+endif
+
+ifeq ($(strip $(OPENSSL_PREFIX)),)
+$(error Could not find OpenSSL. macOS: brew install openssl@3   Arch: sudo pacman -S openssl   (or pass OPENSSL_PREFIX=/path/to/openssl))
 endif
 
 CFLAGS  := -O2 -Wall -I$(OPENSSL_PREFIX)/include \
