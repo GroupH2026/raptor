@@ -2,11 +2,24 @@ Raptor: a lattice based (linkable) ring signature
 ===========
 Raptor signature and Reference Code
 
-Contacts:
+This repo now includes a Makefile. On macOS you'll need Homebrew's OpenSSL (`brew install openssl@3`), then:
 
-* Zhenfei Zhang
+    make              # build with default params (NOU=50)
+    make run          # build and run the self-test
+    make bench        # run at NOU = 5, 10, 20, 50 and print timings
 
-Contacts may be reached by sending mail to lastnamefirstname at gmail
+Three params in `param.h` can be overridden without editing the file, e.g. to test a different ring size:
+
+    make NOU=10 run
+
+| Param | Meaning | Default |
+| --- | --- | --- |
+| `NOU` | ring size (number of users) | 50 |
+| `SIGMA` | Gaussian sampler std dev | 123 |
+| `PARAM_NONCE` | Falcon nonce length | 40 |
+
+`DIM` and `PARAM_Q` are fixed by the vendored Falcon-512 implementation and can't be changed this way.
+Claude is AI and can make mistakes. Please double-check responses. Give us feedbackSee task progress for longer tasks.Capstone Project (Masters)Instructions · CLAUDE.mdraptorREADME.md.gitignoreMakefileparam.hapi.hlinkable_raptor.cprint.cpoly.crng.cpoly.htest.craptor.craptor.hTODO.mdScratchpad
 
 
 
